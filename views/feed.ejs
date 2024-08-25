@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <link rel="stylesheet" href="/stylesheets/feed.css">
+    <link rel="shortcut icon" href="https://s.pinimg.com/webapp/favicon-22eb868c.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="/javascripts/drop-down.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <div class="navbar">
+
+        <div class="left">
+            <a href="/feed"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" id="logo"
+                    alt=""></a>
+            <a href="#" style=" background-color:black; color: white;">Home</a>
+            <a href="#">Explore</a>
+            <a href="#">Create</a>
+        </div>
+
+        <div class="middle">
+            <img src="/images/search.png" alt="">
+            <form action="/feed" id="myForm" method="post">
+                <input type="text" id="myInput" placeholder="Search" name="search">
+            </form>
+        </div>
+
+        <div class="right">
+            <a href="#">
+                <img src="/images/bell.png" alt="">
+            </a>
+            <a href="#"><img src="/images/messenger.png" alt=""></a>
+            <a href="#" style="padding: 15px 20px;">X</a>
+            <button class="dropbtn" onclick="myFunction()">
+                <img src="/images/down-arrow.png" alt="" class="dropbtn">
+            </button>
+        </div>
+
+        <div class="dropdown-content" id="myDropdown">
+            <a href="/profile" class="button btn btn-success">Your Profile</a>
+            <a href="/logout" class="button btn btn-danger">Logout</a>
+        </div>
+
+    </div>
+
+    <!-- Navbar -->
+
+    <!-- ----------------------------------------------------------------- -->
+
+    <!-- Feed Container -->
+
+    <div class="container">
+
+        <% posts.forEach((post)=>{ %>
+            <div class="box">
+
+                <a href="/images/uploads/<%= post.image %>" target="_blank" id="overlay">
+
+                    <img src="/images/uploads/<%= post.image %>" alt="image" class="postsimg"></a>
+                <div class="post-buttons">
+                    <form action="/open-profile" method="post">
+                        <input type="hidden" name="postName" value="<%= post.image %>" />
+                    <button class="button btn btn-success" type="submit">Profile</button>
+                </form>
+                </div>
+                <div class="caption">
+                    #<%= post.postText %>
+                </div>
+            </div>
+            <% }) %>
+
+    </div>
+
+    <!-- Feed Container -->
+    
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+    
+                // Get the input value
+                var inputValue = document.getElementById("myInput").value;
+                console.log("Input value:", inputValue);
+    
+                // You can perform further actions with the input value here
+    
+                // Clear the input field after submission
+                document.getElementById("myInput").value = "";
+            });
+    
+            document.getElementById("myInput").addEventListener("keypress", function(event) {
+                // Check if the Enter key (key code 13) was pressed
+                if (event.keyCode === 13) {
+                    event.preventDefault(); // Prevent the default form submission behavior
+                    document.getElementById("myForm").submit(); // Manually submit the form
+                }
+            });
+      </script>
+    <script src="/javascripts/drop-down.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</body>
+
+</html>
